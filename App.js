@@ -1,15 +1,38 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
+import HomeScreen from "./screens/HomeScreen";
+import MapScreen from "./screens/MapScreen";
 import { store } from "./store";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
+
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <Text>Welcome to Uber</Text>
-        <StatusBar style="auto" />
-      </View>
+      <NavigationContainer>
+        <SafeAreaProvider>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="HomeScreen"
+              component={HomeScreen}
+              options={{
+                headeerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="MapScreen"
+              component={MapScreen}
+              options={{
+                headeerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </SafeAreaProvider>
+      </NavigationContainer>
     </Provider>
   );
 }
